@@ -13,7 +13,6 @@
 ##############################################################################
 """Broken-object support
 
-$Id$
 """
 __docformat__ = 'restructuredtext'
 
@@ -24,33 +23,32 @@ import zope.security.checker
 from zope.broken.interfaces import IBroken
 from zope.annotation.interfaces import IAnnotations
 
+@zope.interface.implementer(
+    IBroken,
+    zope.location.interfaces.ILocation,
+    IAnnotations,
+)
 class Broken(ZODB.broken.Broken):
-    zope.interface.implements(
-        IBroken,
-        zope.location.interfaces.ILocation,
-        IAnnotations,
-        )
 
+    def __get_state(self, key, default=None):
+        get = getattr(self.__Broken_state__, 'get', None)
+        if get is None:
+            get = lambda k, d: default
+        return get(key, default)
+
+    @property
     def __parent__(self):
-        return self.__Broken_state__.get('__parent__')
+        return self.__get_state('__parent__')
 
-    __parent__ = property(__parent__)
-
+    @property
     def __name__(self):
-        return self.__Broken_state__.get('__name__')
-
-    __name__ = property(__name__)
+        return self.__get_state('__name__')
 
     def __getAnnotations(self):
-        get = getattr(self.__Broken_state__, 'get', None)
-        if get is not None:
-            return get('__annotations__')
+        return self.__get_state('__annotations__', {})
 
     def __getitem__(self, key):
-        annotations = self.__getAnnotations()
-        if annotations:
-            return annotations[key]
-        raise KeyError(key)
+        return self.__getAnnotations()[key]
 
     def __setitem__(self, key, value):
         raise ZODB.broken.BrokenModified("Can't modify broken objects")
@@ -60,8 +58,6 @@ class Broken(ZODB.broken.Broken):
 
     def get(self, key, default=None):
         annotations = self.__getAnnotations()
-        if annotations is None:
-            return default
         return annotations.get(key, default)
 
 def installBroken(event):

@@ -2,10 +2,14 @@
 CHANGES
 =======
 
-3.6.1 (unreleased)
+4.0.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add support for Python 3.4, 3.5, 3.6 and PyPy.
+
+- Change dependency on ``ZODB3`` to ``ZODB``.
+
+- The ``browser.zcml`` will only be loaded if ``zope.browserpage`` is installed.
 
 
 3.6.0 (2010-09-25)
