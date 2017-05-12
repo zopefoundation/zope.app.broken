@@ -7,15 +7,6 @@
   <include package="zope.browserresource" file="meta.zcml" />
   <include package="zope.browserpage" file="meta.zcml" />
 
-  <configure zcml:condition="not-installed zope.app.menus.zmi_views">
-    <include package="zope.browsermenu" file="meta.zcml" />
-    <browser:menu
-      id="zmi_views"
-      title="Views"
-      description="Menu for displaying alternate representations of an object"
-      />
-  </configure>
-
   <include package="zope.security" />
 
   <browser:icon

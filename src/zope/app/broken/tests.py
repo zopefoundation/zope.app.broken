@@ -82,6 +82,21 @@ class TestConfiguration(cleanup.CleanUp,
                         unittest.TestCase):
 
     def test_configure(self):
+        _ = xmlconfig.string(r"""
+        <configure xmlns="http://namespaces.zope.org/browser" i18n_domain="zope">
+        <include package="zope.browsermenu" file="meta.zcml" />
+        <menu
+          id="zmi_views"
+          title="Views"
+          />
+
+        <menu
+          id="zmi_actions"
+          title="Actions"
+        />
+        </configure>
+        """)
+
         xmlconfig.string(r"""
         <configure xmlns="http://namespaces.zope.org/zope">
           <include package="zope.app.broken" />
@@ -89,7 +104,7 @@ class TestConfiguration(cleanup.CleanUp,
         """)
         from zope import component
         from zope.interface import implementer
-        from zope.broken.interfaces import IBroken
+
         from zope.publisher.interfaces.browser import IDefaultBrowserLayer
         @implementer(IDefaultBrowserLayer)
         class Layer(object):
