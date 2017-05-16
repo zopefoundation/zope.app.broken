@@ -16,4 +16,4 @@
 
 __docformat__ = "reStructuredText"
 
-from zope.broken.interfaces import IBroken # BBB
+from ZODB.interfaces import IBroken # BBB
