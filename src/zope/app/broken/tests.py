@@ -13,77 +13,112 @@
 ##############################################################################
 """Broken-object tests
 
-$Id$
 """
 import unittest
 from doctest import DocTestSuite
 
-def test_annotations():
-    """Broken objects may have attribute annotations
+from zope.configuration import xmlconfig
+from zope.app.broken.broken import Broken
+from ZODB.broken import BrokenModified
+from zope.testing import cleanup
 
-    If they do, we can access them::
+class TestBroken(unittest.TestCase):
 
-      >>> from zope.app.broken.broken import Broken
-      >>> b = Broken()
-      >>> b.__setstate__({'__annotations__': {'foo.bar': 42}})
-      >>> b['foo.bar']
-      42
-      >>> b.get('foo.bar')
-      42
+    def tearDown(self):
+        import ZODB.broken
+        ZODB.broken.broken_cache.clear()
 
-      Missing keys are handled as expected:
+    def test_annotations(self):
+        # Broken objects may have attribute annotations.
+        # If so, we can access them.
+        b = Broken()
+        b.__setstate__({'__annotations__': {'foo.bar': 42}})
+        self.assertEqual(42, b['foo.bar'])
+        self.assertEqual(42, b.get('foo.bar'))
 
-      >>> b['foo.baz']
-      Traceback (most recent call last):
-      ...
-      KeyError: 'foo.baz'
+        # Missing keys are handled as expected
+        self.assertRaises(KeyError, b.__getitem__, 'foo.baz')
 
-      >>> b.get('foo.baz')
+        # Annotations can't be modified
+        self.assertRaises(BrokenModified, b.__setitem__, 'foo.baz', 1)
+        self.assertRaises(BrokenModified, b.__delitem__, 'foo.baz')
 
-      It is an error to modify annotations:
+        # If there are no annotation data, then, obviously, there are
+        # no annotations:
+        b = Broken()
+        self.assertIsNone(b.get('foo.bar'))
+        self.assertRaises(KeyError, b.__getitem__, 'foo.bar')
+        self.assertRaises(BrokenModified, b.__setitem__, 'foo.baz', 1)
+        self.assertRaises(BrokenModified, b.__delitem__, 'foo.baz')
 
-      >>> b['foo.baz'] = []
-      Traceback (most recent call last):
-      ...
-      BrokenModified: Can't modify broken objects
+    def test__parent__(self):
+        # parent comes from the state
+        b = Broken()
+        self.assertIsNone(b.__parent__)
 
-      >>> del b['foo.bar']
-      Traceback (most recent call last):
-      ...
-      BrokenModified: Can't modify broken objects
+        b.__setstate__({'__parent__': self})
 
-    If there are no annotation data, then, obviously, there are no annotations:
+        self.assertIs(self, b.__parent__)
 
-      >>> b = Broken()
-      >>> b['foo.bar']
-      Traceback (most recent call last):
-      ...
-      KeyError: 'foo.bar'
+    def test__name__(self):
+        # name comes from the state
+        b = Broken()
+        self.assertIsNone(b.__name__)
 
-      >>> b.get('foo.bar')
+        b.__setstate__({'__name__': self})
 
-      >>> b['foo.bar'] = []
-      Traceback (most recent call last):
-      ...
-      BrokenModified: Can't modify broken objects
-
-      >>> del b['foo.bar']
-      Traceback (most recent call last):
-      ...
-      BrokenModified: Can't modify broken objects
+        self.assertIs(self, b.__name__)
 
 
-    Cleanup:
+class TestInterfaces(unittest.TestCase):
 
-      >>> import ZODB.broken
-      >>> ZODB.broken.broken_cache.clear()
+    def test_bwc(self):
+        from zope.broken import interfaces as new
+        from zope.app.broken import interfaces as old
 
-    """
+        self.assertIs(old.IBroken, new.IBroken)
+
+class TestConfiguration(cleanup.CleanUp,
+                        unittest.TestCase):
+
+    def test_configure(self):
+        _ = xmlconfig.string(r"""
+        <configure xmlns="http://namespaces.zope.org/browser" i18n_domain="zope">
+        <include package="zope.browsermenu" file="meta.zcml" />
+        <menu
+          id="zmi_views"
+          title="Views"
+          />
+
+        <menu
+          id="zmi_actions"
+          title="Actions"
+        />
+        </configure>
+        """)
+
+        xmlconfig.string(r"""
+        <configure xmlns="http://namespaces.zope.org/zope">
+          <include package="zope.app.broken" />
+        </configure>
+        """)
+        from zope import component
+        from zope.interface import implementer
+
+        from zope.publisher.interfaces.browser import IDefaultBrowserLayer
+        @implementer(IDefaultBrowserLayer)
+        class Layer(object):
+            pass
+
+        self.assertIsNotNone(component.getMultiAdapter(
+            (Broken(), Layer()),
+            name='index.html'))
 
 def test_suite():
     return unittest.TestSuite((
-        DocTestSuite(),
         DocTestSuite('zope.app.broken.broken'),
-        ))
+        unittest.defaultTestLoader.loadTestsFromName(__name__),
+    ))
 
-if __name__ == '__main__': unittest.main()
+if __name__ == '__main__':
+    unittest.main()

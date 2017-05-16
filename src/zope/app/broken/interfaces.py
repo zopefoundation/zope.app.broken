@@ -12,8 +12,6 @@
 #
 ##############################################################################
 """zope.app.broken interfaces.
-
-$Id$
 """
 
 __docformat__ = "reStructuredText"

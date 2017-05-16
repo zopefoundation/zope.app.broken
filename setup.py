@@ -18,52 +18,74 @@
 ##############################################################################
 """Setup for zope.app.broken package
 
-$Id$
 """
 import os
 from setuptools import setup, find_packages
 
 def read(*rnames):
-    return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
+    with open(os.path.join(os.path.dirname(__file__), *rnames)) as f:
+        return f.read()
 
 setup(name='zope.app.broken',
-      version='3.6.1dev',
+      version='4.0.0.dev0',
       author='Zope Corporation and Contributors',
       author_email='zope-dev@zope.org',
       description='Zope Broken (ZODB) Object Support',
       long_description=(
-          read('README.txt')
+          read('README.rst')
           + '\n\n' +
-          read('CHANGES.txt')
+          read('CHANGES.rst')
           ),
-      keywords = "zope3 content provider",
-      classifiers = [
+      keywords="zope3 content provider",
+      classifiers=[
           'Development Status :: 5 - Production/Stable',
           'Environment :: Web Environment',
           'Intended Audience :: Developers',
           'License :: OSI Approved :: Zope Public License',
           'Programming Language :: Python',
+          'Programming Language :: Python :: 2',
+          'Programming Language :: Python :: 2.7',
+          'Programming Language :: Python :: 3',
+          'Programming Language :: Python :: 3.4',
+          'Programming Language :: Python :: 3.5',
+          'Programming Language :: Python :: 3.6',
+          'Programming Language :: Python :: Implementation :: CPython',
+          'Programming Language :: Python :: Implementation :: PyPy',
           'Natural Language :: English',
           'Operating System :: OS Independent',
           'Topic :: Internet :: WWW/HTTP',
-          'Framework :: Zope3'],
-      url='http://cheeseshop.python.org/pypi/zope.app.broken',
+          'Framework :: Zope3',
+      ],
+      url='http://github.com/zopefoundation/zope.app.broken',
       license='ZPL 2.1',
       packages=find_packages('src'),
-      package_dir = {'': 'src'},
+      package_dir={'': 'src'},
       namespace_packages=['zope', 'zope.app'],
-      install_requires=['setuptools',
-                        'zope.interface',
-                        'zope.location',
-                        'zope.security',
-                        'zope.annotation',
-                        'zope.broken',
-                        'zope.processlifetime',
-                        'ZODB3'],
-      extras_require=dict(
-          test=[
+      install_requires=[
+          'setuptools',
+          'zope.interface',
+          'zope.location',
+          'zope.security',
+          'zope.annotation',
+          'zope.broken',
+          'zope.processlifetime',
+          'ZODB',
+      ],
+      extras_require={
+          'test': [
+              'zope.browsermenu',
+              'zope.browserpage',
+              'zope.browserresource',
+              'zope.configuration',
               'zope.testing',
-              ]),
-      include_package_data = True,
-      zip_safe = False,
-      )
+              'zope.testrunner',
+          ],
+          'browser': [
+              'zope.browsermenu',
+              'zope.browserpage',
+              'zope.browserresource',
+          ],
+      },
+      include_package_data=True,
+      zip_safe=False,
+)
