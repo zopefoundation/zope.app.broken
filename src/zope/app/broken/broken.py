@@ -20,7 +20,7 @@ import ZODB.broken
 import zope.interface
 import zope.location.interfaces
 import zope.security.checker
-from zope.broken.interfaces import IBroken
+from ZODB.interfaces import IBroken
 from zope.annotation.interfaces import IAnnotations
 
 @zope.interface.implementer(

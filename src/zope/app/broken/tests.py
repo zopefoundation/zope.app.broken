@@ -73,7 +73,7 @@ class TestBroken(unittest.TestCase):
 class TestInterfaces(unittest.TestCase):
 
     def test_bwc(self):
-        from zope.broken import interfaces as new
+        from ZODB import interfaces as new
         from zope.app.broken import interfaces as old
 
         self.assertIs(old.IBroken, new.IBroken)

@@ -5,7 +5,8 @@
 4.0.1 (unreleased)
 ==================
 
-- Nothing changed yet.
+- Drop dependency on ``zope.broken``, because the correct imports have
+  moved into ZODB.
 
 
 4.0.0 (2017-05-16)
