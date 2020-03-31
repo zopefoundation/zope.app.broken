@@ -14,14 +14,13 @@
 """Broken-object support
 
 """
-__docformat__ = 'restructuredtext'
-
 import ZODB.broken
 import zope.interface
 import zope.location.interfaces
 import zope.security.checker
 from ZODB.interfaces import IBroken
 from zope.annotation.interfaces import IAnnotations
+
 
 @zope.interface.implementer(
     IBroken,
@@ -59,6 +58,7 @@ class Broken(ZODB.broken.Broken):
     def get(self, key, default=None):
         annotations = self.__getAnnotations()
         return annotations.get(key, default)
+
 
 def installBroken(event):
     """Install a class factory that handled broken objects
@@ -104,7 +104,7 @@ def installBroken(event):
       >>> ZODB.broken.broken_cache.clear()
     """
 
-    Broken_ = Broken # make it local for speed
+    Broken_ = Broken  # make it local for speed
     find_global = ZODB.broken.find_global
 
     def type_(name, bases, dict):

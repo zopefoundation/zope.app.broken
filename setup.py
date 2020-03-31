@@ -22,6 +22,7 @@
 import os
 from setuptools import setup, find_packages
 
+
 def read(*rnames):
     with open(os.path.join(os.path.dirname(__file__), *rnames)) as f:
         return f.read()
@@ -35,14 +36,16 @@ setup(name='zope.app.broken',
           read('README.rst')
           + '\n\n' +
           read('CHANGES.rst')
-          ),
+      ),
       keywords="zope3 content provider",
       classifiers=[
           'Development Status :: 5 - Production/Stable',
           'Environment :: Web Environment',
+          'Framework :: Zope :: 3',
           'Intended Audience :: Developers',
           'License :: OSI Approved :: Zope Public License',
-          'Programming Language :: Python',
+          'Natural Language :: English',
+          'Operating System :: OS Independent',
           'Programming Language :: Python :: 2',
           'Programming Language :: Python :: 2.7',
           'Programming Language :: Python :: 3',
@@ -52,10 +55,8 @@ setup(name='zope.app.broken',
           'Programming Language :: Python :: 3.8',
           'Programming Language :: Python :: Implementation :: CPython',
           'Programming Language :: Python :: Implementation :: PyPy',
-          'Natural Language :: English',
-          'Operating System :: OS Independent',
+          'Programming Language :: Python',
           'Topic :: Internet :: WWW/HTTP',
-          'Framework :: Zope :: 3',
       ],
       url='http://github.com/zopefoundation/zope.app.broken',
       license='ZPL 2.1',

@@ -10,7 +10,7 @@ python:
   - pypy3
 
 script:
-  - coverage run -m zope.testrunner --test-path=src  --auto-color --auto-progress
+  - coverage run -m zope.testrunner --test-path=src --auto-color --auto-progress
 
 after_success:
   - coveralls

@@ -22,6 +22,7 @@ from zope.app.broken.broken import Broken
 from ZODB.broken import BrokenModified
 from zope.testing import cleanup
 
+
 class TestBroken(unittest.TestCase):
 
     def tearDown(self):
@@ -78,11 +79,12 @@ class TestInterfaces(unittest.TestCase):
 
         self.assertIs(old.IBroken, new.IBroken)
 
+
 class TestConfiguration(cleanup.CleanUp,
                         unittest.TestCase):
 
     def test_configure(self):
-        _ = xmlconfig.string(r"""
+        xmlconfig.string(r"""
         <configure xmlns="http://namespaces.zope.org/browser" i18n_domain="zope">
         <include package="zope.browsermenu" file="meta.zcml" />
         <menu
@@ -106,6 +108,7 @@ class TestConfiguration(cleanup.CleanUp,
         from zope.interface import implementer
 
         from zope.publisher.interfaces.browser import IDefaultBrowserLayer
+
         @implementer(IDefaultBrowserLayer)
         class Layer(object):
             pass
@@ -114,11 +117,9 @@ class TestConfiguration(cleanup.CleanUp,
             (Broken(), Layer()),
             name='index.html'))
 
+
 def test_suite():
     return unittest.TestSuite((
         DocTestSuite('zope.app.broken.broken'),
         unittest.defaultTestLoader.loadTestsFromName(__name__),
     ))
-
-if __name__ == '__main__':
-    unittest.main()
