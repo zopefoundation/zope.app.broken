@@ -2,7 +2,7 @@
  CHANGES
 =========
 
-4.1 (unreleased)
+4.1 (2020-03-31)
 ================
 
 - Drop dependency on ``zope.broken``, because the correct imports have

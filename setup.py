@@ -28,7 +28,7 @@ def read(*rnames):
         return f.read()
 
 setup(name='zope.app.broken',
-      version='4.1.dev0',
+      version='4.1',
       author='Zope Corporation and Contributors',
       author_email='zope-dev@zope.org',
       description='Zope Broken (ZODB) Object Support',
