@@ -8,6 +8,8 @@
 - Drop dependency on ``zope.broken``, because the correct imports have
   moved into ZODB.
 
+- Add support for Python 3.7 and 3.8.
+
 
 4.0.0 (2017-05-16)
 ==================
