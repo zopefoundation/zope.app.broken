@@ -85,7 +85,8 @@ class TestConfiguration(cleanup.CleanUp,
 
     def test_configure(self):
         xmlconfig.string(r"""
-        <configure xmlns="http://namespaces.zope.org/browser" i18n_domain="zope">
+        <configure xmlns="http://namespaces.zope.org/browser"
+                   i18n_domain="zope">
         <include package="zope.browsermenu" file="meta.zcml" />
         <menu
           id="zmi_views"
