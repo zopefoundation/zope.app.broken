@@ -16,4 +16,6 @@
 
 __docformat__ = "reStructuredText"
 
-from ZODB.interfaces import IBroken # BBB
+from ZODB.interfaces import IBroken
+
+__all__ = ["IBroken"]

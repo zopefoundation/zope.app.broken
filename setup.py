@@ -27,6 +27,7 @@ def read(*rnames):
     with open(os.path.join(os.path.dirname(__file__), *rnames)) as f:
         return f.read()
 
+
 setup(name='zope.app.broken',
       version='4.2.dev0',
       author='Zope Corporation and Contributors',
@@ -90,4 +91,4 @@ setup(name='zope.app.broken',
       },
       include_package_data=True,
       zip_safe=False,
-)
+      )

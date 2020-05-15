@@ -32,7 +32,8 @@ class Broken(ZODB.broken.Broken):
     def __get_state(self, key, default=None):
         get = getattr(self.__Broken_state__, 'get', None)
         if get is None:
-            get = lambda k, d: default
+            def get(key, default):
+                return default
         return get(key, default)
 
     @property
