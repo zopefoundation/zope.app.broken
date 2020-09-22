@@ -14,8 +14,11 @@
 """zope.app.broken interfaces.
 """
 
-__docformat__ = "reStructuredText"
+from zope.deferredimport import deprecated
 
-from ZODB.interfaces import IBroken
-
-__all__ = ["IBroken"]
+# BBB zope.app.broken 5.0: Names now moved to ZODB itself.
+deprecated(
+    'Please import from ZODB.interfaces.'
+    ' This module will go away in zope.app.broken 5.0.',
+    IBroken='ZODB.interfaces:IBroken',
+)
