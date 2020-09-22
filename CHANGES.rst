@@ -5,7 +5,8 @@
 4.2 (unreleased)
 ================
 
-- Nothing changed yet.
+- Deprecate ``zope.app.broken.interfaces.IBroken``. Please import it directly
+  from ``ZODB.interfaces``.
 
 
 4.1 (2020-03-31)

@@ -66,12 +66,13 @@ setup(name='zope.app.broken',
       namespace_packages=['zope', 'zope.app'],
       install_requires=[
           'setuptools',
+          'zope.deferredimport',
           'zope.interface',
           'zope.location',
           'zope.security',
           'zope.annotation',
           'zope.processlifetime',
-          'ZODB',
+          'ZODB >= 3.10.0a1',
       ],
       extras_require={
           'test': [
