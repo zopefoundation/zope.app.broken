@@ -8,6 +8,7 @@
 - Deprecate ``zope.app.broken.interfaces.IBroken``. Please import it directly
   from ``ZODB.interfaces``.
 
+- Add support for Python 3.9.
 
 4.1 (2020-03-31)
 ================
