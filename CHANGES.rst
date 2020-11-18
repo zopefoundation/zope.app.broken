@@ -2,7 +2,7 @@
  CHANGES
 =========
 
-4.2 (unreleased)
+4.2 (2020-11-18)
 ================
 
 - Deprecate ``zope.app.broken.interfaces.IBroken``. Please import it directly
