@@ -72,16 +72,6 @@ class TestBroken(unittest.TestCase):
         self.assertIs(self, b.__name__)
 
 
-class TestInterfaces(unittest.TestCase):
-
-    def test_bwc(self):
-        from ZODB import interfaces as new
-
-        from zope.app.broken import interfaces as old
-
-        self.assertIs(old.IBroken, new.IBroken)
-
-
 class TestConfiguration(cleanup.CleanUp,
                         unittest.TestCase):
 

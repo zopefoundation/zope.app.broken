@@ -9,6 +9,9 @@
 
 - Drop support for Python 2.7, 3.5, 3.6.
 
+- Remove ``zope.app.broken.interfaces.IBroken``. It had been moved to
+  ``ZODB.interfaces`` long ago.
+
 
 4.2 (2020-11-18)
 ================
