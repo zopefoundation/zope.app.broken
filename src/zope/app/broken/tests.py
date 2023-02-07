@@ -113,7 +113,7 @@ class TestConfiguration(cleanup.CleanUp,
         from zope import component
 
         @implementer(IDefaultBrowserLayer)
-        class Layer(object):
+        class Layer:
             pass
 
         self.assertIsNotNone(component.getMultiAdapter(
