@@ -16,6 +16,7 @@
 
 from zope.deferredimport import deprecated
 
+
 # BBB zope.app.broken 5.0: Names now moved to ZODB itself.
 deprecated(
     'Please import from ZODB.interfaces.'
