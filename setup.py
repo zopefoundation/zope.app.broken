@@ -12,7 +12,7 @@
 #
 ##############################################################################
 # This package is developed by the Zope Toolkit project, documented here:
-# http://docs.zope.org/zopetoolkit
+# https://zopetoolkit.readthedocs.io/
 # When developing and releasing this package, please follow the documented
 # Zope Toolkit policies as described by this documentation.
 ##############################################################################
@@ -20,7 +20,9 @@
 
 """
 import os
-from setuptools import setup, find_packages
+
+from setuptools import find_packages
+from setuptools import setup
 
 
 def read(*rnames):
@@ -29,9 +31,9 @@ def read(*rnames):
 
 
 setup(name='zope.app.broken',
-      version='4.3.dev0',
+      version='5.0.dev0',
       author='Zope Corporation and Contributors',
-      author_email='zope-dev@zope.org',
+      author_email='zope-dev@zope.dev',
       description='Zope Broken (ZODB) Object Support',
       long_description=(
           read('README.rst')
@@ -47,14 +49,12 @@ setup(name='zope.app.broken',
           'License :: OSI Approved :: Zope Public License',
           'Natural Language :: English',
           'Operating System :: OS Independent',
-          'Programming Language :: Python :: 2',
-          'Programming Language :: Python :: 2.7',
           'Programming Language :: Python :: 3',
-          'Programming Language :: Python :: 3.5',
-          'Programming Language :: Python :: 3.6',
           'Programming Language :: Python :: 3.7',
           'Programming Language :: Python :: 3.8',
           'Programming Language :: Python :: 3.9',
+          'Programming Language :: Python :: 3.10',
+          'Programming Language :: Python :: 3.11',
           'Programming Language :: Python :: Implementation :: CPython',
           'Programming Language :: Python :: Implementation :: PyPy',
           'Programming Language :: Python',
@@ -65,6 +65,7 @@ setup(name='zope.app.broken',
       packages=find_packages('src'),
       package_dir={'': 'src'},
       namespace_packages=['zope', 'zope.app'],
+      python_requires='>=3.7',
       install_requires=[
           'setuptools',
           'zope.deferredimport',
@@ -77,7 +78,6 @@ setup(name='zope.app.broken',
       ],
       extras_require={
           'test': [
-              'mock ; python_version=="2.7"',
               'zope.browsermenu',
               'zope.browserpage',
               'zope.browserresource',

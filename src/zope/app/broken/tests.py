@@ -17,10 +17,11 @@
 import unittest
 from doctest import DocTestSuite
 
-from zope.configuration import xmlconfig
-from zope.app.broken.broken import Broken
 from ZODB.broken import BrokenModified
+from zope.configuration import xmlconfig
 from zope.testing import cleanup
+
+from zope.app.broken.broken import Broken
 
 
 class TestBroken(unittest.TestCase):
@@ -71,15 +72,6 @@ class TestBroken(unittest.TestCase):
         self.assertIs(self, b.__name__)
 
 
-class TestInterfaces(unittest.TestCase):
-
-    def test_bwc(self):
-        from ZODB import interfaces as new
-        from zope.app.broken import interfaces as old
-
-        self.assertIs(old.IBroken, new.IBroken)
-
-
 class TestConfiguration(cleanup.CleanUp,
                         unittest.TestCase):
 
@@ -105,13 +97,13 @@ class TestConfiguration(cleanup.CleanUp,
           <include package="zope.app.broken" />
         </configure>
         """)
-        from zope import component
         from zope.interface import implementer
-
         from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 
+        from zope import component
+
         @implementer(IDefaultBrowserLayer)
-        class Layer(object):
+        class Layer:
             pass
 
         self.assertIsNotNone(component.getMultiAdapter(
